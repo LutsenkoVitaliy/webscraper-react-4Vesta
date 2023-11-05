@@ -1,10 +1,12 @@
-import './App.styled.js';
+import { Container } from './App.styled.js';
+import WebScraperComponent from './WebScraperComponent/WebScraperComponent.jsx';
+
 
 function App() {
   return (
-    <div className="App">
-
-    </div>
+    <Container>
+    <WebScraperComponent/>
+    </Container>
   );
 }
 
