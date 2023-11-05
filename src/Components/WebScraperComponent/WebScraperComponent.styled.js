@@ -9,7 +9,7 @@ padding: 0.5em;
 
 `
 
-export const Title = styled.summary`
+export const Title = styled.h2`
   font-size: 50px;
   font-weight: 500;
   background-image: linear-gradient(to left, #553c9a, #b393d3);
@@ -19,8 +19,12 @@ export const Title = styled.summary`
   
 `
 
-export const Paragraph = styled.summary`
+export const Paragraph = styled.p`
 text-indent: 35px;
 margin-top: 10px;
 
+`
+
+export const Image = styled.img`
+margin: 0 auto;
 `

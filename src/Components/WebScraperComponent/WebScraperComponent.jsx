@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 // import PropTypes from "prop-types";
-import {Summary, Title, Paragraph} from './WebScraperComponent.styled'
+import {Summary, Title, Paragraph, Image} from './WebScraperComponent.styled'
 
 const BASE_URL = "https://library.kiwix.org/content/wikipedia_uk_all_maxi_2023-07"
 
@@ -67,7 +67,7 @@ class WebScraperComponent extends Component {
           <div>
             <Title>{scrapedData.title}</Title>
             {scrapedData.imageUrl && (
-            <img src={scrapedData.imageUrl.replace("..",BASE_URL)} alt={scrapedData.title} /> 
+            <Image src={scrapedData.imageUrl.replace("..",BASE_URL)} alt={scrapedData.title} /> 
           )}
             <Paragraph>{scrapedData.description}</Paragraph>
 
