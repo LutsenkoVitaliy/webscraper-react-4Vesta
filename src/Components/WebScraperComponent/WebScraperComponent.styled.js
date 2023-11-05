@@ -21,5 +21,6 @@ export const Title = styled.summary`
 
 export const Paragraph = styled.summary`
 text-indent: 35px;
+margin-top: 10px;
 
 `

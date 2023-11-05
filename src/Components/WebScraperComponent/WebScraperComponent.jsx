@@ -3,6 +3,8 @@ import axios from 'axios';
 // import PropTypes from "prop-types";
 import {Summary, Title, Paragraph} from './WebScraperComponent.styled'
 
+const BASE_URL = "https://library.kiwix.org/content/wikipedia_uk_all_maxi_2023-07"
+
 class WebScraperComponent extends Component {
   constructor() {
     super();
@@ -20,29 +22,7 @@ class WebScraperComponent extends Component {
   componentDidMount() {
     const url = 'https://library.kiwix.org/wikipedia_uk_all_maxi_2023-07/A/4_Веста'; 
     const cheerio = require('cheerio');
-    // const https = require('https');
-    // const fs = require('fs');
-
-    // https.get(url, (response) => {
-    //   let data = '';
-      
-    //   response.on('data', (chunk) => {
-    //   data += chunk;
-    //   });
-      
-    //   response.on('end', () => {
-    //   const $ =cheerio.load(data);
-      
-    //   const images = [];
-      
-    //   $('img').each((index, element) => {
-    //   images.push($(element).attr('src'));
-    //   });
-      
-    //   console.log(images);
-    //   });
-    //   });
-
+   
     axios.get(url)
       .then((response) => {
         const html = response.data;
@@ -87,7 +67,7 @@ class WebScraperComponent extends Component {
           <div>
             <Title>{scrapedData.title}</Title>
             {scrapedData.imageUrl && (
-            <img src={scrapedData.imageUrl} alt={scrapedData.title} /> 
+            <img src={scrapedData.imageUrl.replace("..",BASE_URL)} alt={scrapedData.title} /> 
           )}
             <Paragraph>{scrapedData.description}</Paragraph>
 
