@@ -20,6 +20,7 @@ class WebScraperComponent extends Component {
   componentDidMount() {
     const url = 'https://library.kiwix.org/wikipedia_uk_all_maxi_2023-07/A/4_Веста'; 
     const cheerio = require('cheerio');
+    const fs = require('fs');
     // const download = require('node-image-downloader')
 
     axios.get(url)
@@ -35,6 +36,32 @@ class WebScraperComponent extends Component {
         const description = $('div.mf-section-0').text();
         const imageUrl = $('[src="../I/Vesta_in_natural_color.jpg.webp"]').attr('src');
         const moreInformation = $('details[data-level="2"]').text();
+
+
+        axios({
+          method: 'get',
+          url: imageUrl, // Предполагается, что URL изображения хранится в состоянии
+          responseType: 'stream', // Указываем, что мы хотим потоковый ответ
+        })
+          .then((response) => {
+            const filePath = '../../downloads/vesta.jp'; // Укажите путь и имя файла для сохранения изображения
+        
+            const writer = fs.createWriteStream(filePath);
+        
+            response.data.pipe(writer);
+        
+            writer.on('finish', () => {
+              console.log('Изображение успешно скачано и сохранено как ' + filePath);
+            });
+        
+            writer.on('error', (err) => {
+              console.error('Ошибка при сохранении изображения: ' + err);
+            });
+          })
+          .catch((error) => {
+            console.error('Ошибка при загрузке изображения: ' + error);
+          });
+        
 
         // download({
         //   imgs: [
