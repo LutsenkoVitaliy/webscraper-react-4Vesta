@@ -4,8 +4,9 @@ export const Summary = styled.summary`
 cursor: pointer;
 border-bottom: solid 1px #eaecf0;
 font-weight: bold;
-  margin: -0.5em -0.5em 0;
-  padding: 0.5em;
+margin: 20px 0 20px 0;
+padding: 0.5em;
+
 `
 
 export const Title = styled.summary`
@@ -14,5 +15,11 @@ export const Title = styled.summary`
   background-image: linear-gradient(to left, #553c9a, #b393d3);
   color: transparent;
   background-clip: text;
+  text-align: center;
   
+`
+
+export const Paragraph = styled.summary`
+text-indent: 35px;
+
 `
