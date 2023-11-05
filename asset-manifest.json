@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/webscraper-react-4vesta/static/css/main.e170751a.css",
+    "main.js": "/webscraper-react-4vesta/static/js/main.4bb3bf7d.js",
+    "index.html": "/webscraper-react-4vesta/index.html",
+    "main.e170751a.css.map": "/webscraper-react-4vesta/static/css/main.e170751a.css.map",
+    "main.4bb3bf7d.js.map": "/webscraper-react-4vesta/static/js/main.4bb3bf7d.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e170751a.css",
+    "static/js/main.4bb3bf7d.js"
+  ]
+}
