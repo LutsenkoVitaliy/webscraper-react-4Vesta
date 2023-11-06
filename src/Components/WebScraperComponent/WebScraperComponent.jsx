@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-// import PropTypes from "prop-types";
+import * as cheerio from 'cheerio';
 import {Summary, Title, Paragraph, Image} from './WebScraperComponent.styled'
 
-const BASE_URL = "https://library.kiwix.org/content/wikipedia_uk_all_maxi_2023-07"
+const BASE_URL = 'https://library.kiwix.org/wikipedia_uk_all_maxi_2023-07/A/4_Веста'; 
+const IMG_URL = "https://library.kiwix.org/content/wikipedia_uk_all_maxi_2023-07"
+
 
 class WebScraperComponent extends Component {
   constructor() {
@@ -20,10 +22,7 @@ class WebScraperComponent extends Component {
   }
 
   componentDidMount() {
-    const url = 'https://library.kiwix.org/wikipedia_uk_all_maxi_2023-07/A/4_Веста'; 
-    const cheerio = require('cheerio');
-   
-    axios.get(url)
+    axios.get(BASE_URL)
       .then((response) => {
         const html = response.data;
         const $ = cheerio.load(html, { 
@@ -67,7 +66,7 @@ class WebScraperComponent extends Component {
           <div>
             <Title>{scrapedData.title}</Title>
             {scrapedData.imageUrl && (
-            <Image src={scrapedData.imageUrl.replace("..",BASE_URL)} alt={scrapedData.title} /> 
+            <Image src={scrapedData.imageUrl.replace("..",IMG_URL)} alt={scrapedData.title} /> 
           )}
             <Paragraph>{scrapedData.description}</Paragraph>
 
@@ -79,7 +78,7 @@ class WebScraperComponent extends Component {
             </details>
           </div>
         ) : (
-          <p>Загрузка данных...</p>
+          <p>Загрузка сторінки...</p>
         )}
       </div>
     );
