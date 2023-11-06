@@ -25,11 +25,11 @@ export default function WebScraperComponent() {
           normalizeWhitespace : true , 
         } , 
       });
-
+      
       const title = $('span.mw-page-title-main').text();
       const description = $('div.mf-section-0').text();
       const imageUrl = $('[src="../I/Vesta_in_natural_color.jpg.webp"]').attr('src');
-      const moreInformation = $('details[data-level="2"]').text();
+      const moreInformation = $('details[data-level="2"]:first').text();
      
 
       setScrapedData({ 
