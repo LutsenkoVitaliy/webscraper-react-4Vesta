@@ -4,7 +4,7 @@ import * as cheerio from 'cheerio';
 import {Summary, Title, Paragraph, Image} from './WebScraperComponent.styled'
 
 const BASE_URL = 'https://library.kiwix.org/wikipedia_uk_all_maxi_2023-07/A/4_Веста'; 
-const IMG_URL = "https://library.kiwix.org/content/wikipedia_uk_all_maxi_2023-07"
+const IMG_URL = "https://library.kiwix.org/content/wikipedia_uk_all_maxi_2023-07";
 
 export default function WebScraperComponent() {
   const [scrapedData, setScrapedData] = useState({
