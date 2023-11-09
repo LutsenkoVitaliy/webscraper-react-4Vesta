@@ -1,76 +1,125 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import * as cheerio from 'cheerio';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import {Summary, Title, Paragraph, Image} from './WebScraperComponent.styled'
 
-const BASE_URL = 'https://library.kiwix.org/wikipedia_uk_all_maxi_2023-07/A/4_Веста'; 
 const IMG_URL = "https://library.kiwix.org/content/wikipedia_uk_all_maxi_2023-07";
 
-export default function WebScraperComponent() {
-  const [scrapedData, setScrapedData] = useState({
-    title: '',
-    description: '',
-    imageUrl: '',
-    moreInformation : '',
-  });
+function WebScraperComponent() {
+  const [jsonData, setJsonData] = useState({});
   const [isInfoVisible, setIsInfoVisible] = useState(false);
 
-  
+  const toggleInfo = useCallback(() => {
+    setIsInfoVisible(prev => !prev);
+  }, []);
+
+  const imgSource = useMemo(() => jsonData.imageUrl?.replace("..",IMG_URL), [jsonData.imageUrl]);
+
+  const label = useMemo(() => isInfoVisible ? 'Приховати інформацію' : 'Більше інформації', [isInfoVisible]);
+
   useEffect(() => {
-    axios.get(BASE_URL)
-    .then((response) => {
-      const html = response.data;
-      const $ = cheerio.load(html, { 
-        xml : { 
-          normalizeWhitespace : true , 
-        } , 
-      });
-      
-      const title = $('span.mw-page-title-main').text();
-      const description = $('div.mf-section-0').text();
-      const imageUrl = $('[src="../I/Vesta_in_natural_color.jpg.webp"]').attr('src');
-      const moreInformation = $('details[data-level="2"]:first').text();
-     
-
-      setScrapedData({ 
-          title,
-          description,
-          imageUrl,
-          moreInformation
-      });
-    })
-    .catch((error) => {
-      console.error(`Ошибка при загрузке страницы: ${error}`);
-    });
-    }, []);
-
-  const toggleInfo = () => {
-    setIsInfoVisible(!isInfoVisible);
-  };
+    const fetchData = () => {
+      fetch('/4Vesta')
+      .then((response) => response.json())
+      .then((data) => setJsonData(data))
+      .catch((error) => console.error('Ошибка загрузки данных из файла JSON:', error));
+    };
+    
+    fetchData();
+  }, []);
 
   return (
     <div>
-    {scrapedData ? (
-      <div>
-        <Title>{scrapedData.title}</Title>
-        {scrapedData.imageUrl && (
-        <Image src={scrapedData.imageUrl.replace("..",IMG_URL)} alt={scrapedData.title} /> 
-      )}
-        <Paragraph>{scrapedData.description}</Paragraph>
-
-        <details>
-        <Summary onClick={toggleInfo}>
-          {isInfoVisible ? 'Скрити інформацію' : 'Більше інформації'}
-        </Summary>
-          <Paragraph>{scrapedData.moreInformation}</Paragraph>
-        </details>
-      </div>
-    ) : (
-      <p>Загрузка сторінки...</p>
-    )}
-  </div>
+      {jsonData ? (
+        <div>
+          <Title>{jsonData.title}</Title>
+          {jsonData.imageUrl && (
+          <Image src={imgSource} alt={jsonData.title} /> 
+          )}
+          <Paragraph>{jsonData.description}</Paragraph>
+    
+          <details>
+          <Summary onClick={toggleInfo}>
+            {label}
+          </Summary>
+            <Paragraph>{jsonData.moreInformation}</Paragraph>
+          </details>
+          </div>
+        ) : (
+          <p>Загрузка сторінки...</p>
+        )}
+    </div>
   );
 }
+
+export default WebScraperComponent;
+
+
+
+// export default function WebScraperComponent() {
+//   const [scrapedData, setScrapedData] = useState({
+//     title: '',
+//     description: '',
+//     imageUrl: '',
+//     moreInformation : '',
+//   });
+//   const [isInfoVisible, setIsInfoVisible] = useState(false);
+
+  
+//   useEffect(() => {
+//     axios.get(BASE_URL)
+//     .then((response) => {
+//       const html = response.data;
+//       const $ = cheerio.load(html, { 
+//         xml : { 
+//           normalizeWhitespace : true , 
+//         } , 
+//       });
+      
+//       const title = $('span.mw-page-title-main').text();
+//       const description = $('div.mf-section-0').text();
+//       const imageUrl = $('[src="../I/Vesta_in_natural_color.jpg.webp"]').attr('src');
+//       const moreInformation = $('details[data-level="2"]:first').text();
+     
+
+//       setScrapedData({ 
+//           title,
+//           description,
+//           imageUrl,
+//           moreInformation
+//       });
+//     })
+//     .catch((error) => {
+//       console.error(`Ошибка при загрузке страницы: ${error}`);
+//     });
+//     }, []);
+    
+
+//   const toggleInfo = () => {
+//     setIsInfoVisible(!isInfoVisible);
+//   };
+
+//   return (
+//     <div>
+//     {scrapedData ? (
+//       <div>
+//         <Title>{scrapedData.title}</Title>
+//         {scrapedData.imageUrl && (
+//         <Image src={scrapedData.imageUrl.replace("..",IMG_URL)} alt={scrapedData.title} /> 
+//       )}
+//         <Paragraph>{scrapedData.description}</Paragraph>
+
+//         <details>
+//         <Summary onClick={toggleInfo}>
+//           {isInfoVisible ? 'Скрити інформацію' : 'Більше інформації'}
+//         </Summary>
+//           <Paragraph>{scrapedData.moreInformation}</Paragraph>
+//         </details>
+//       </div>
+//     ) : (
+//       <p>Загрузка сторінки...</p>
+//     )}
+//   </div>
+//   );
+// }
 
 
 // class WebScraperComponent extends Component {
