@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import {Summary, Title, Paragraph, Image} from './WebScraperComponent.styled'
 import data from '../../server/data.json'
-console.log(data);
+
 
 const IMG_URL = "https://library.kiwix.org/content/wikipedia_uk_all_maxi_2023-07";
 
