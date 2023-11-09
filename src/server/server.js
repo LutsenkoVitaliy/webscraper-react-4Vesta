@@ -16,12 +16,15 @@ app.get('/4Vesta', async (_req, res) => {
     const imageUrl = $('[src="../I/Vesta_in_natural_color.jpg.webp"]').attr('src');
     const moreInformation = $('details[data-level="2"]:first').text();
 
-    res.json({
+    const data = {
       title,
       description,
       imageUrl,
       moreInformation,
-    })
+    };
+    res.json(data);
+
+    require('fs').writeFileSync('data.json', JSON.stringify(data, null, 2), 'utf-8');
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'An error occurred' });
