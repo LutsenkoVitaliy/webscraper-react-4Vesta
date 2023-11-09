@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/webscraper-react-4vesta/static/css/main.e170751a.css",
-    "main.js": "/webscraper-react-4vesta/static/js/main.5e55b849.js",
+    "main.js": "/webscraper-react-4vesta/static/js/main.c1696b1c.js",
     "index.html": "/webscraper-react-4vesta/index.html",
     "main.e170751a.css.map": "/webscraper-react-4vesta/static/css/main.e170751a.css.map",
-    "main.5e55b849.js.map": "/webscraper-react-4vesta/static/js/main.5e55b849.js.map"
+    "main.c1696b1c.js.map": "/webscraper-react-4vesta/static/js/main.c1696b1c.js.map"
   },
   "entrypoints": [
     "static/css/main.e170751a.css",
-    "static/js/main.5e55b849.js"
+    "static/js/main.c1696b1c.js"
   ]
 }
