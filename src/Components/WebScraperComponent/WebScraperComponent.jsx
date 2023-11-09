@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import {Summary, Title, Paragraph, Image} from './WebScraperComponent.styled'
 import data from '../../server/data.json'
+console.log(data);
 
 const IMG_URL = "https://library.kiwix.org/content/wikipedia_uk_all_maxi_2023-07";
 
@@ -29,7 +30,7 @@ function WebScraperComponent() {
 
   return (
     <div>
-      {jsonData ? (
+      {jsonData.title ? (
         <div>
           <Title>{jsonData.title}</Title>
           {jsonData.imageUrl && (
@@ -48,13 +49,13 @@ function WebScraperComponent() {
           <div>
           <Title>{data.title}</Title>
           {data.imageUrl && (
-          <Image src={data.imageUrl?.replace("..",IMG_URL)} alt={data.title} /> 
+          <Image src={data.imageUrl.replace("..",IMG_URL)} alt={data.title} /> 
           )}
           <Paragraph>{data.description}</Paragraph>
     
           <details>
           <Summary onClick={toggleInfo}>
-            {label}
+            {isInfoVisible ? 'Скрити інформацію' : 'Більше інформації'}
           </Summary>
             <Paragraph>{data.moreInformation}</Paragraph>
           </details>
